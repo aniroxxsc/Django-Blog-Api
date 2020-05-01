@@ -12,6 +12,7 @@ class LoginPage extends Component {
       password: '',
       error: '',
       token: '',
+      userid:'',
     };
 
     this.handlePassChange = this.handlePassChange.bind(this);
@@ -28,21 +29,35 @@ class LoginPage extends Component {
     evt.preventDefault();
     this.setState({ error: '' });
     console.log(this.state);
+
+
     axios.post(`http://localhost:8000/auth/token/login`, {
-  email:this.state.email,
-  password: this.state.password,
-})
-      .then(res => {
+      email:this.state.email,
+      password: this.state.password,
+    })
+    .then(res => {
         this.setState({ token : res.data.auth_token });
         // console.log(res);
         // console.log(res.data);
         console.log(this.state.token)
-        Cookies.set('auth_token', this.state.token , { expires: 1 });
-        console.log(Cookies.get('auth_token'));
+        Cookies.set('auth_token', this.state.token , { expires: 7 });
+          // console.log(Cookies.get('auth_token'));
         this.props.history.push('/')
+        axios.get('http://localhost:8000/auth/users/me',{ 
+          headers: {
+           Authorization: 'Token '+ this.state.token} 
+      })
+      .then(function (response) {
+        console.log(response.data);
+        Cookies.set('username', response.data.username , { expires: 7 });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
       }).catch(error => {
         console.log(error.response);
     });
+
   }
 
   handleUserChange(evt) {

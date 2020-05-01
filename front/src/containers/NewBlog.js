@@ -40,7 +40,7 @@ import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import { ImageDrop } from 'quill-image-drop-module';
 import ImageResize from 'quill-image-resize-module-react';
-
+import Cookies from'js-cookie'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop);
 
@@ -55,7 +55,6 @@ class NewBlog extends React.Component {
     
     handleChange (html) {
         this.setState({ NewBlogHtml: html });
-
     }
     setTitle (title) {
       this.setState({ title: title });
@@ -71,9 +70,11 @@ class NewBlog extends React.Component {
     onSubmit (event){
       event.preventDefault();
       console.log(this.state.NewBlogHtml)
+      Cookies.get('username')
       const data ={
         content :this.state.NewBlogHtml,
-        title: this.state.title
+        title: this.state.title,
+        username : Cookies.get('username')
       }
 
       axios.post('http://localhost:8000/create/', data,      {
@@ -84,6 +85,7 @@ class NewBlog extends React.Component {
 .then(res => {
   console.log(res);
   console.log(res.data);
+  this.props.history.push('/')
 }).catch(error => {
   console.log(error.response);
 })
