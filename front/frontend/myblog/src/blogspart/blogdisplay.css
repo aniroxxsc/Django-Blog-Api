@@ -1,0 +1,42 @@
+.blogdisplaying{
+   
+    height:100vh;
+    display:flex;
+  
+  }
+  .blogdisplaying-appside{
+    width:80vw;
+    background-color:whitesmoke;
+  }
+  
+  .blogdisplaying-formside{
+    width:20vw;
+    background-color:#F76C6C;
+}
+    
+.title-display{
+  margin:20px;
+  border: 2px solid black;
+  width:50vw;
+  
+}
+.blogcontent-display{
+  border: 2px solid black;
+  width:60vw;
+  height:75vh;
+  margin:20px;
+  
+}
+.recent-post{
+    margin:10px;
+    width:19vw;
+    border:2px solid black;
+    height:50vh;
+
+}
+.comment-section{
+    width:50vw;
+    margin:20px;
+    border:2px solid black;
+    height:70px;
+}

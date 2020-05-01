@@ -1,0 +1,56 @@
+.blogeditor{
+    
+   height:100vh;
+    display:flex;
+}
+.blogeditor-centerbox{
+    width:50vw;
+    background-color: #9cc3d5;
+    margin-top:50px;
+    margin-left: 450px;
+    height: 100vh;
+    border-radius: 25px;
+    
+    
+}
+.heading{
+    margin:15px;
+    color:white;
+}
+.inputtext{
+    width:45vw;
+    border-radius:5px;
+    background-color:lightblue;
+    margin:20px;
+}
+.inputtext1{
+    width:45vw;
+    height: 50vh;
+    border-radius:5px;
+    background-color: lightblue;
+    margin:20px;
+}
+input[type=text] , textarea{
+    width: 75%;
+    padding: 12px;
+    border: 1px solid blue;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  .button1{
+      margin:20px;
+  }
+  input[type=submit] {
+    background-color: #ccc;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+    font-family: 'Lucida Sans';
+    font-size:20px
+  }
+  
+  
+
