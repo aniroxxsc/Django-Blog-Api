@@ -5,4 +5,16 @@ from authapp.models import User
 class Post(models.Model): 
     content = models.TextField()
     title=models.TextField()
-    username = models.ForeignKey(User, to_field='username', on_delete=models.CASCADE)
+    description=models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    CreateTime = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering=('CreateTime',)
+
+
+class Images(models.Model):
+    post = models.ForeignKey(Post, default=None,on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="images/",verbose_name='Image')
