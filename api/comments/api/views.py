@@ -4,7 +4,7 @@ from .serializer import CommentSerializer
 from comments.models import Comment
 from blog.models import Post
 from django.shortcuts import redirect
-
+import logging
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -13,7 +13,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from django.shortcuts import get_list_or_404, get_object_or_404
-
+logger = logging.getLogger('django')
 # Create your views here.
 @api_view(['GET',])
 def comment_view(request,pk):
@@ -22,6 +22,7 @@ def comment_view(request,pk):
         #comment_post =Comment.objects.get(post=pk)
         #comment_post = get_object_or_404(Comment,post=pk)
         comment_post = Comment.objects.filter(post=pk)
+        logger.info('comment view func')
     except Comment.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -40,9 +41,11 @@ def comment_delete(request,pk,ck):
 
     user = request.user
     if comment_post.user != user:
+        logger.info('details')
         return Response({'response' : "You don\'t have permission to delete that"})
     
     if request.method == 'DELETE':
+        logger.info('comment delete')
         operation = comment_post.delete()
         data = {}
         if operation:
@@ -56,8 +59,10 @@ def comment_delete(request,pk,ck):
 def comment_create(request, pk):
     comment = Comment() 
     if request.method == 'POST':
+        logger.info('details')
         serializer = CommentSerializer(comment, data=request.data)
         if serializer.is_valid():
+            logger.info('comment create')
             serializer.save()
         post = get_object_or_404(Post, pk=pk)
         content = request.POST.get('content')
@@ -68,3 +73,4 @@ def comment_create(request, pk):
 class CommentView(ListAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    logger.info('comment view')

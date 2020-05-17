@@ -70,14 +70,14 @@ class NewBlog extends React.Component {
     onSubmit (event){
       event.preventDefault();
       console.log(this.state.NewBlogHtml)
-      Cookies.get('username')
       const data ={
         content :this.state.NewBlogHtml,
         title: this.state.title,
-        username : Cookies.get('username')
+        user : Cookies.get('username'),
+        description:'sample'
       }
 
-      axios.post('http://localhost:8000/create/', data,      {
+      axios.post('http://localhost:8000/blog/', data,      {
         headers: {
             'Content-Type': 'application/json'
         }}

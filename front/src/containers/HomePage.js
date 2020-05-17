@@ -6,7 +6,7 @@ class HomePage extends React.Component {
         articles: []
     }
     componentDidMount() {
-        axios.get('http://localhost:8000/create',)
+        axios.get('http://localhost:8000/blog',)
             .then(res =>{
                 this.setState({
                     articles:res.data

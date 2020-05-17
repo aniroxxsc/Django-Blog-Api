@@ -12,7 +12,7 @@ class Post(models.Model):
         return self.title
 
     class Meta:
-        ordering=('CreateTime',)
+        ordering=('-CreateTime',)
 
 
 class Images(models.Model):

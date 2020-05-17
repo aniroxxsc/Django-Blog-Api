@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.PostList.as_view()),
     path('<int:pk>', views.PostView.as_view()),
-    path('<int:pk>/comments/',include('comments.api.urls','comments_api')),
+    path('comments/',include('comments.api.urls','comments_api')),
 ]

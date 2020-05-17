@@ -49,7 +49,7 @@ class LoginPage extends Component {
       })
       .then(function (response) {
         console.log(response.data);
-        Cookies.set('username', response.data.username , { expires: 7 });
+        Cookies.set('username', response.data.id, { expires: 7 });
       })
       .catch(function (error) {
         console.log(error);

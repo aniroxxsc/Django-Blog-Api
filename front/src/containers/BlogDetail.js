@@ -8,7 +8,7 @@ class BlogDetail extends React.Component {
     };
     componentDidMount() {
         const id =  this.props.match.params.id;
-        let url = 'http://localhost:8000/create/' + id;
+        let url = 'http://localhost:8000/blog/' + id;
         axios.get(url)
             .then(res =>{
                 this.setState({
