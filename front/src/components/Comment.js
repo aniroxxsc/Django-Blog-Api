@@ -5,41 +5,26 @@ import axios from 'axios';
 import { resolve } from 'react-resolver'
 
 
-class Comment extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      users :[]
-    };
-  }
-
-
-  componentWillMount(){
-  var sample=[]
-  console.log(this.props.data)
-    for (var comment of this.props.data){
+const Comment = (props) => {
+  let users=[]
+    for (var comment of props.data){
       console.log(comment)
       let url = 'http://localhost:8000/auth/allusers/' + comment.user;
       axios.get(url)
       .then(res =>{
-        console.log(res.data)
-          this.state.users.push(res.data[0])
-          // console.log(sample[0].first_name)
+          users.push(res.data[0])
+          console.log(users[0].first_name)
       });
     }
-  //   this.setState({
-  //     users.push(sample)
-  // });
-  }
-  render(){
+    
      return (
         <List
         itemLayout="horizontal"
-        dataSource={this.props.data}
+        dataSource={props.data}
         renderItem={item => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar icon={<UserOutlined />} />} title={<a href="#">{}</a>}
+              avatar={<Avatar icon={<UserOutlined />} />} title={<a href="#">{users[0].first_name}</a>}
               
               description={item.content}
             />
@@ -47,7 +32,7 @@ class Comment extends React.Component {
         )}
       />
  );
-        }
+      
  }
 
 
