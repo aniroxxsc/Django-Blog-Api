@@ -3,10 +3,11 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    email = models.EmailField(verbose_name='email', max_length=255,unique=True)
+    email = models.EmailField(verbose_name='email', max_length=255,null=True)
     phone = models.IntegerField(null=True)
-    REQUIRED_FIELDS = ['username','phone','first_name','last_name']
-    USERNAME_FIELD = 'email'
+    sap = models.IntegerField(unique=True)
+    REQUIRED_FIELDS = ['phone','first_name','last_name']
+    USERNAME_FIELD = 'sap'
 
     def get_username(self):
-        return self.email
+        return str(self.sap)

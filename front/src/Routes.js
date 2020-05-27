@@ -27,23 +27,12 @@ class BaseRouter extends React.Component {
          <Route exact path="/" component={requireAuth(HomePage)} />
          <Route exact path = '/:id' component={requireAuth(BlogDetail)}/>
          <Route exact path = '/signup/' component={Signup}/>
-            <Route exact path = '/create2/' component={Oauth}/>
+          {/* <Route exact path = '/create2/' component={Oauth}/> */}
          {!this.state.auth &&  <Redirect push to="/login"/> }
         </Switch>
        </BrowserRouter>
         );
       }
      }
-
-// const BaseRouter = () =>(
-//     <div>
-//             <Route exact path = '/login' component={LoginPage}/>
-//             <Route exact path = '/signup/' component={Signup}/>
-//             <Route exact path = '/create2/' component={Oauth}/>
-//             <Route exact path = '/createnew/' component={NewBlog} />
-//             <Route exact path = '/' component={HomePage} />
-//             <Route exact path = '/:id' component={BlogDetail}/>
-//     </div>
-// );
 
 export default BaseRouter;

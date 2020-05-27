@@ -101,7 +101,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'authapp.User'
 
 DJOSER = {
-    'LOGIN_FIELD':'email',
+    'LOGIN_FIELD':'sap',
     'ACTIVATION_URL': 'auth/users/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
@@ -197,3 +197,9 @@ LOGGING = {
     }
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = '500068749@stu.upes.ac.in'
+EMAIL_HOST_PASSWORD = 'krishna55'

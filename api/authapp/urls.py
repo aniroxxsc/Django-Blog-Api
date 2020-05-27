@@ -1,7 +1,10 @@
 from django.urls import path, include
-from authapp  import views
+from .views import UserActivationView,userlist
+from django.conf.urls import  url
 
 urlpatterns = [
-    path('', include('djoser.urls')),
-    path('', include('djoser.urls.authtoken')),
+    url(r'^', include('djoser.urls')),
+    url(r'^', include('djoser.urls.authtoken')),
+    url(r'^users/activate/(?P<uid>[\w-]+)/(?P<token>[\w-]+)/$', UserActivationView.as_view()),
+    url(r'^allusers/(?P<pk>[\w-]+)',userlist)
 ]
