@@ -23,6 +23,7 @@ const useStyles = makeStyles({
 });
 
 const ImgMediaCard = (props) => {
+  const classes = useStyles();
   console.log(props.data.articles)
   if (props.data.articles[0]) {
 
@@ -37,29 +38,29 @@ const ImgMediaCard = (props) => {
          <div className="division1">
             <div className="container1">
                 <div className="image-container1"><img src={props.data.images[0].image} width="230vw" height="188vh" mode="fit"/></div>
-                <div className="container5"><p><a href={props.data.articles[0].id}>{props.data.articles[0].title} </a></p></div>
+                <div className="container5"><p><a onclick='handleclick();' href={props.data.articles[0].id}>{props.data.articles[0].title} </a></p></div>
             </div>
             <div className="container1">
              <div className="image-container1"><img src={props.data.images[1].image} width="230vw" height="188vh" mode="fit"/></div>
-             <div className="container5"><p><a href={props.data.articles[1].id}>{props.data.articles[1].title} </a> </p></div>
+             <div className="container5"><p><a onclick='handleclick();' href={props.data.articles[1].id}>{props.data.articles[1].title} </a> </p></div>
              </div>
 
          </div>
          <div className="division2">
              <div className="container2">
              <div className="image-container2"><img src={props.data.images[2].image} width="230vw" height="675vh" mode="fit"/></div>
-             <div className="container5"><p><a href={props.data.articles[2].id}>{props.data.articles[2].title} </a></p></div>
+             <div className="container5"><p><a onclick='handleclick();' href={props.data.articles[2].id}>{props.data.articles[2].title} </a></p></div>
          </div>
 
          </div>
          <div className="division3">
              <div className="container3">
              <div className="image-container1"><img src={props.data.images[3].image} width="230vw" height="188vh" mode="fit"/></div>
-             <div className="container5"><p><a href={props.data.articles[3].id}>{props.data.articles[3].title} </a> </p></div>
+             <div className="container5"><p><a onclick='handleclick();' href={props.data.articles[3].id}>{props.data.articles[3].title} </a> </p></div>
              </div>
              <div className="container3">
              <div className="image-container1"><img src={props.data.images[3].image} width="230vw" height="188vh" mode="fit"/></div>
-             <div className="container5"><p><a href={props.data.articles[4].id}>{props.data.articles[4].title} </a> </p></div>
+             <div className="container5"><p><a onclick='handleclick();' href={props.data.articles[4].id}>{props.data.articles[4].title} </a> </p></div>
              </div>
          </div>
          <div className="division4">
@@ -70,7 +71,7 @@ const ImgMediaCard = (props) => {
           
              <div className="container5">
                 <div className="text">
-                 <p><a href={props.data.articles[5].id}>{props.data.articles[5].title} </a>
+                 <p><a onclick='handleclick();' href={props.data.articles[5].id}>{props.data.articles[5].title} </a>
                  </p>
                  </div>
              </div>
@@ -82,7 +83,7 @@ const ImgMediaCard = (props) => {
 
              
              <div className="container5">
-                 <p><a href={props.data.articles[6].id}>{props.data.articles[6].title} </a>
+                 <p><a onclick='handleclick();' href={props.data.articles[6].id}>{props.data.articles[6].title} </a>
                  </p>
              </div>
 
@@ -92,7 +93,7 @@ const ImgMediaCard = (props) => {
              </div>
             
              <div className="container5">
-                 <p><a href={props.data.articles[7].id}>{props.data.articles[7].title} </a>
+                 <p><a onclick='handleclick();' href={props.data.articles[7].id}>{props.data.articles[7].title} </a>
                  </p>
              </div>
              <div className="container4">
@@ -101,7 +102,7 @@ const ImgMediaCard = (props) => {
              </div>
              
              <div className="container5">
-                 <p><a href={props.data.articles[8].id}>{props.data.articles[8].title} </a>
+                 <p><a onclick='handleclick();' href={props.data.articles[8].id}>{props.data.articles[8].title} </a>
                  </p>
              </div>
          </div>
@@ -116,10 +117,10 @@ const ImgMediaCard = (props) => {
              <div className="container6B">
                  <div className="textbig">We are on Social Media</div>
                  <div className="textsmall">
-                   <a href="#" className="fa fa-facebook"></a>
-                   <a href="#" className="fa fa-twitter"></a>
-                   <a href="#" className="fa fa-google"></a>
-                   <a href="#" className="fa fa-instagram"></a>
+                   <a onclick='handleclick();' href="#" className="fa fa-facebook"></a>
+                   <a onclick='handleclick();' href="#" className="fa fa-twitter"></a>
+                   <a onclick='handleclick();' href="#" className="fa fa-google"></a>
+                   <a onclick='handleclick();' href="#" className="fa fa-instagram"></a>
                    <div><img src={acmlogo} height="200px" width="300px"/></div>
                  </div>
              
@@ -144,4 +145,9 @@ return(
   </div>
 );
 }
+
+function handleclick(){
+
+};
+
 export default ImgMediaCard;

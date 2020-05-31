@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component , useEffect} from 'react';
 import './css/main.css';
 import Oauth from './Googlesignin';
 import axios from 'axios';
 import Cookies from'js-cookie'
+import { connect } from 'react-redux';
+import {fetchUser} from '../redux'
 
 class LoginPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      email: '',
+      sap: '',
       password: '',
       error: '',
       token: '',
@@ -32,28 +34,17 @@ class LoginPage extends Component {
 
 
     axios.post(`http://localhost:8000/auth/token/login`, {
-      sap:this.state.email,
+      sap:this.state.sap,
       password: this.state.password,
     })
     .then(res => {
         this.setState({ token : res.data.auth_token });
-        // console.log(res);
-        // console.log(res.data);
+        this.props.fetchUser(this.state.token)
         console.log(this.state.token)
         Cookies.set('auth_token', this.state.token , { expires: 7 });
-          // console.log(Cookies.get('auth_token'));
+          
         this.props.history.push('/')
-        axios.get('http://localhost:8000/auth/users/me',{ 
-          headers: {
-           Authorization: 'Token '+ this.state.token} 
-      })
-      .then(function (response) {
-        console.log(response.data);
-        Cookies.set('username', response.data.id, { expires: 7 });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        
       }).catch(error => {
         console.log(error.response);
     });
@@ -62,7 +53,7 @@ class LoginPage extends Component {
 
   handleUserChange(evt) {
     this.setState({
-      email: evt.target.value,
+      sap: evt.target.value,
     });
   };
 
@@ -81,7 +72,7 @@ class LoginPage extends Component {
           <form onSubmit={this.handleSubmit}>
 
   <div className="container">
-    <label for="uname"><b>Email</b></label>
+    <label for="uname"><b>SAP ID</b></label>
     <input type="text" placeholder="Enter Username" name="uname" onChange={this.handleUserChange} required />
 
     <label for="psw"><b>Password</b></label>
@@ -102,54 +93,34 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+const mapStateToProps = state => {
+  return {
+    userData: state.userData
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchUser: token => dispatch(fetchUser(token))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginPage);
 
 
 
 
-// googleSDK() {
- 
-//   window['googleSDKLoaded'] = () => {
-//     window['gapi'].load('auth2', () => {
-//       this.auth2 = window['gapi'].auth2.init({
-//         client_id: '849906640607-rot890jh0ubg1qi93b73uevcdisq8ld4.apps.googleusercontent.com',
-//         cookiepolicy: 'single_host_origin',
-//         scope: 'profile email'
+
+
+
+// axios.get('http://localhost:8000/auth/users/me',{ 
+//           headers: {
+//            Authorization: 'Token '+ this.state.token} 
+//       })
+//       .then(function (response) {
+//         console.log(response.data);
+//         Cookies.set('username', response.data.id, { expires: 7 });
+//       })
+//       .catch(function (error) {
+//         console.log(error);
 //       });
-//       this.prepareLoginButton();
-//     });
-//   }
- 
-//   (function(d, s, id){
-//     var js, fjs = d.getElementsByTagName(s)[0];
-//     if (d.getElementById(id)) {return;}
-//     js = d.createElement(s); js.id = id;
-//     js.src = "https://apis.google.com/js/platform.js?onload=googleSDKLoaded";
-//     fjs.parentNode.insertBefore(js, fjs);
-//   }(document, 'script', 'google-jssdk'));
- 
-// }
-// componentDidMount() {
-//   this.googleSDK();
-// }
-// prepareLoginButton = () => {
-
-//   console.log(this.refs.googleLoginBtn);
-   
-//   this.auth2.attachClickHandler(this.refs.googleLoginBtn, {},
-//       (googleUser) => {
-   
-//       let profile = googleUser.getBasicProfile();
-//       console.log('Token || ' + googleUser.getAuthResponse().id_token);
-//       console.log('ID: ' + profile.getId());
-//       console.log('Name: ' + profile.getName());
-//       console.log('Image URL: ' + profile.getImageUrl());
-//       console.log('Email: ' + profile.getEmail());
-//       //YOUR CODE HERE
-   
-   
-//       }, (error) => {
-//       alert(JSON.stringify(error, undefined, 2));
-//       });
-   
-//   }

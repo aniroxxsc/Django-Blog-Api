@@ -1,39 +1,3 @@
-// import React from 'react';
-// import CKNewBlog from '@ckNewBlog/ckNewBlog5-react';
-// import ClassicNewBlog from '@ckNewBlog/ckNewBlog5-build-classic';
-
-
-// class NewBlog extends React.Component {
-//     render() {
-//         return (
-//             <div className="App">
-//                 <h2>Create Blog!</h2>
-//                 <CKNewBlog
-
-//                     NewBlog={ ClassicNewBlog }
-//                     data="<p>Type your content here...</p>"
-//                     onInit={ NewBlog => {
-//                         // You can store the "NewBlog" and use when it is needed.
-//                         console.log( 'NewBlog is ready to use!', NewBlog );
-//                     } }
-//                     onChange={ ( event, NewBlog ) => {
-//                         const data = NewBlog.getData();
-//                         console.log( { event, NewBlog, data } );
-//                     } }
-//                     onBlur={ ( event, NewBlog ) => {
-//                         console.log( 'Blur.', NewBlog );
-//                     } }
-//                     onFocus={ ( event, NewBlog ) => {
-//                         console.log( 'Focus.', NewBlog );
-//                     } }
-//                 />
-//             </div>
-//         );
-//     }
-// }
-
-
-// export default NewBlog;
 import React from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -41,6 +5,7 @@ import axios from 'axios';
 import { ImageDrop } from 'quill-image-drop-module';
 import ImageResize from 'quill-image-resize-module-react';
 import Cookies from'js-cookie'
+import { connect } from 'react-redux'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop);
 
@@ -73,7 +38,7 @@ class NewBlog extends React.Component {
       const data ={
         content :this.state.NewBlogHtml,
         title: this.state.title,
-        user : Cookies.get('username'),
+        user : this.props.userData.id,
         description:'sample'
       }
 
@@ -170,10 +135,12 @@ class NewBlog extends React.Component {
     'link', 'image', 'video'
   ]
   
-  /* 
-   * PropType validation
-   */
-  /* 
-   * Render component on page
-   */
-export default NewBlog;
+
+const mapStateToProps = state => {
+    return {
+      userData: state.userData
+    }
+  }
+
+
+export default connect(mapStateToProps)(NewBlog);

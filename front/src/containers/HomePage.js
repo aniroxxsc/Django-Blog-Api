@@ -32,6 +32,7 @@ class HomePage extends React.Component {
             <div>
         
                 <ImgMediaCard data={this.state}/>
+                <a href='/createnew'>Create New!</a>
             </div>
         )
     }
