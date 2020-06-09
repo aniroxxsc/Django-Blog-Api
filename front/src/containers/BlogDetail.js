@@ -9,6 +9,8 @@ class BlogDetail extends React.Component {
         comments: [],
     };
     componentWillMount() {
+        let users=[];
+        let i=0;
         const id =  this.props.match.params.id;
         let url = 'http://localhost:8000/blog/' + id;
         let url2 = url + "/comments/view"
@@ -24,6 +26,7 @@ class BlogDetail extends React.Component {
                     comments:res.data
                 });
             });
+
         });   
     };
 

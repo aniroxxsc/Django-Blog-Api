@@ -1,40 +1,38 @@
 import React from "react";
 import { List, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import axios from 'axios';
-import { resolve } from 'react-resolver'
+import axios from 'axios'
+import {Link} from 'react-router-dom'
 
-
-const Comment = (props) => {
-  let users=[]
-    for (var comment of props.data){
-      console.log(comment)
-      let url = 'http://localhost:8000/auth/allusers/' + comment.user;
-      axios.get(url)
-      .then(res =>{
-          users.push(res.data[0])
-          console.log(users[0].first_name)
-      });
+class Comment extends React.Component {
+    constructor(props){
+      super(props)
     }
-    
-     return (
+    componentDidUpdate(){
+      console.log(this.props.data)
+    }
+  render(){
+     return (<div>
         <List
         itemLayout="horizontal"
-        dataSource={props.data}
+        dataSource={this.props.data}
         renderItem={item => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar icon={<UserOutlined />} />} title={<a href="#">{users[0].first_name}</a>}
+              avatar={<Avatar icon={<UserOutlined />} />} title={<Link to="#">{item.username}</Link>}
               
               description={item.content}
             />
           </List.Item>
         )}
       />
- );
-      
- }
 
+
+</div>
+ )}
+        
+ 
+}
 
 
  export default Comment;

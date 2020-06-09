@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import ImgMediaCard from '../components/Blog'
-
+import Blog from '../components/Blog'
+import { connect } from 'react-redux'
 
 class HomePage extends React.Component {
     state = {
@@ -19,7 +19,7 @@ class HomePage extends React.Component {
             axios.get('http://localhost:8000/blog/latest/images',)
                 .then(res =>{
                     this.setState({
-                        images:res.data 
+                        images:res.data
                     });
                     console.log(res.data)
                     console.log(this.state.images)
@@ -31,10 +31,18 @@ class HomePage extends React.Component {
         return(
             <div>
         
-                <ImgMediaCard data={this.state}/>
-                <a href='/createnew'>Create New!</a>
+                <Blog data={this.state}/>
+                
             </div>
         )
     }
 }
-export default HomePage;
+
+const mapStateToProps = state => {
+    return {
+      userdata: state.userdata
+    }
+  }
+
+
+export default connect(mapStateToProps)(HomePage);

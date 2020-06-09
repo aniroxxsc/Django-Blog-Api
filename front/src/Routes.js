@@ -24,11 +24,10 @@ class BaseRouter extends React.Component {
         <Switch>
          <Route exact path="/createnew" component={requireAuth(NewBlog)} />
          <Route exact path = '/login' component={LoginPage}/>
-         <Route exact path="/" component={requireAuth(HomePage)} />
-         <Route exact path = '/:id' component={requireAuth(BlogDetail)}/>
+         <Route exact path="/" component={HomePage} />
+         <Route exact path = '/:id' component={BlogDetail}/>
          <Route exact path = '/signup/' component={Signup}/>
-          {/* <Route exact path = '/create2/' component={Oauth}/> */}
-         {!this.state.auth &&  <Redirect push to="/login"/> }
+         {/* {!this.state.auth &&  <Redirect push to="/login"/> } */}
         </Switch>
        </BrowserRouter>
         );

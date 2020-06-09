@@ -81,13 +81,12 @@ class LoginPage extends Component {
     <button type="submit">Login</button>
 
   </div>
-  <span className="psw">Don't have an account <a href="/signup/">Sign Up!</a></span>
   <div className="container" style={{backgroundColor:"#f1f1f1"}}>   
   </div>
 </form>
 
 
-        <Oauth />
+        {/* <Oauth /> */}
     </div>
     );
   }

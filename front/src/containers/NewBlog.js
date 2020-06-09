@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import { ImageDrop } from 'quill-image-drop-module';
 import ImageResize from 'quill-image-resize-module-react';
-import Cookies from'js-cookie'
+import uniqueSlug from 'unique-slug'
 import { connect } from 'react-redux'
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop);
@@ -12,10 +12,11 @@ Quill.register('modules/imageDrop', ImageDrop);
 class NewBlog extends React.Component {
     constructor (props) {
       super(props)
-      this.state = { NewBlogHtml: '', theme: 'snow' , title: ''}
+      this.state = { NewBlogHtml: '', theme: 'snow' , title: '',description:''}
       this.handleChange = this.handleChange.bind(this)
       this.onSubmit = this.onSubmit.bind(this)
       this.setTitle = this.setTitle.bind(this)
+      this.setDescription = this.setDescription.bind(this)
     }
     
     handleChange (html) {
@@ -23,10 +24,13 @@ class NewBlog extends React.Component {
     }
     setTitle (title) {
       this.setState({ title: title });
-      console.log(this.state.title)
+      console.log(this.props.userdata)
 
   }
-    
+  setDescription (description) {
+    this.setState({ description : description });
+    console.log(uniqueSlug(description))
+}
     handleThemeChange (newTheme) {
       if (newTheme === "core") newTheme = null;
       this.setState({ theme: newTheme })
@@ -38,8 +42,9 @@ class NewBlog extends React.Component {
       const data ={
         content :this.state.NewBlogHtml,
         title: this.state.title,
-        user : this.props.userData.id,
-        description:'sample'
+        user : this.props.userdata.id,
+        description:this.state.description,
+        slug: uniqueSlug(this.state.description)
       }
 
       axios.post('http://localhost:8000/blog/', data,      {
@@ -60,7 +65,8 @@ class NewBlog extends React.Component {
       return (
         <div>
           <form onSubmit={this.onSubmit}>
-            <p>Title</p><input placeholder="Put a Title." onChange={(e) => this.setTitle(e.target.value)} label='title'></input><br /><br /><br />
+            <p>Title</p><input placeholder="Put a Title." onChange={(e) => this.setTitle(e.target.value)} label='title'></input><br /><br /><p>Desciption</p>
+            <input placeholder="Put a Desciption." onChange={(e) => this.setDescription(e.target.value)} label='description'></input><br /><br />
           <ReactQuill 
             theme={this.state.theme}
             onChange={this.handleChange}
@@ -75,8 +81,6 @@ class NewBlog extends React.Component {
             <select onChange={(e) => 
                 this.handleThemeChange(e.target.value)}>
               <option value="snow">Snow</option>
-              <option value="bubble">Bubble</option>
-              <option value="core">Core</option>
             </select>
           </div>
           
@@ -138,7 +142,7 @@ class NewBlog extends React.Component {
 
 const mapStateToProps = state => {
     return {
-      userData: state.userData
+      userdata: state.userdata
     }
   }
 
