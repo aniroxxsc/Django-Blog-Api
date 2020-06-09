@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
-from .serializer import PostSerializer, ImageSerializer
+from .serializer import PostSerializer, ImageSerializer, LatestSerializer
 from .models import Post, Images
 from .tasks import ConvertToImg
 from rest_framework.response import Response
@@ -54,3 +54,8 @@ def image_view(request,pk):
     if request.method == 'GET':
         serializer= ImageSerializer(images,many=True)
         return Response(serializer.data)
+
+
+class LatestBlog(generics.ListAPIView):
+    queryset=Images.objects.order_by('-id')[:5]
+    serializer_class = LatestSerializer

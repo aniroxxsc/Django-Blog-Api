@@ -9,5 +9,6 @@ urlpatterns = [
     path('<int:pk>', views.PostView.as_view()),
     path('<int:pk>/images/view',image_view,name='view'),
     path('<int:pk>/comments/',include('comments.urls','comments_api')),
+    path('featured', views.LatestBlog.as_view())
     
 ]

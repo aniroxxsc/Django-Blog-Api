@@ -16,3 +16,11 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Images
         fields= ['id','post','image']
+
+
+
+class LatestSerializer(serializers.ModelSerializer):
+    post= PostSerializer()
+    class Meta:
+        model = Images
+        fields =['id','post','image']

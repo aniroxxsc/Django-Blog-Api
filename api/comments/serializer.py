@@ -15,4 +15,5 @@ class CommentSerializer(ModelSerializer):
             'content',
             'post',
             'id',
+            'username',
         ]
