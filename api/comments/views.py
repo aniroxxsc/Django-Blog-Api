@@ -19,8 +19,6 @@ logger = logging.getLogger('django')
 def comment_view(request,pk):
     
     try:
-        #comment_post =Comment.objects.get(post=pk)
-        #comment_post = get_object_or_404(Comment,post=pk)
         comment_post = Comment.objects.filter(post=pk)
         logger.info('comment view func')
     except Comment.DoesNotExist:

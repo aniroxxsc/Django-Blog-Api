@@ -6,6 +6,11 @@ from .models import Post, Images
 from .tasks import ConvertToImg
 from rest_framework.response import Response
 import logging
+
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+
 # Create your views here.
 logger = logging.getLogger('django')
 
@@ -59,3 +64,32 @@ def image_view(request,pk):
 class LatestBlog(generics.ListAPIView):
     queryset=Images.objects.order_by('-id')[:5]
     serializer_class = LatestSerializer
+
+#
+@api_view(['GET',])
+def post_view(request):
+    
+    try:
+        user_post = Post.objects.filter(user=request.user)
+    except Post.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer= PostSerializer(user_post,many=True)
+        return Response(serializer.data)
+
+@api_view(['GET',])
+def post_with_images(request,pk):
+    
+    try:
+        user_post = Post.objects.filter(id=pk)
+        post_image = Images.objects.filter(post = pk)
+    except Post.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer= PostSerializer(user_post,many=True)
+        serializer2 = ImageSerializer(post_image,many=True)
+        Serializer_list = [serializer.data, serializer2.data]
+        return Response(serializer.data + serializer2.data, status=status.HTTP_200_OK)
+

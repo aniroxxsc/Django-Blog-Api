@@ -17,4 +17,4 @@ class Post(models.Model):
 
 class Images(models.Model):
     post = models.ForeignKey(Post, default=None,on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="images/",verbose_name='Image')
+    image = models.ImageField(upload_to="images/",verbose_name='Image', default='images/33513138.png')

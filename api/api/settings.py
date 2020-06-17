@@ -25,7 +25,7 @@ SECRET_KEY = '$rdr(0svz61b=^h0dz5r&4u!jv7ma3xlc2!(8ctq4bqxze$5(n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'authapp',
     'djoser',
-    'corsheaders','comments','blog','widget_tweaks',
+    'corsheaders','comments','blog','widget_tweaks','likes'
 ]
 
 MIDDLEWARE = [
@@ -55,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
